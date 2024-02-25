@@ -3,15 +3,15 @@
 #include "esphome/components/climate_ir/climate_ir.h"
 
 namespace esphome {
-    namespace mhi {
+    namespace mbishi {
         // Temperature
-        const uint8_t MHI_TEMP_MIN = 18; // Celsius
-        const uint8_t MHI_TEMP_MAX = 30; // Celsius
+        const uint8_t MBISHI_TEMP_MIN = 18; // Celsius
+        const uint8_t MBISHI_TEMP_MAX = 30; // Celsius
 
-        class MhiClimate : public climate_ir::ClimateIR {
+        class MbishiClimate : public climate_ir::ClimateIR {
             public:
-                MhiClimate() : climate_ir::ClimateIR(
-                    MHI_TEMP_MIN, MHI_TEMP_MAX, 1.0f, true, true,
+                MbishiClimate() : climate_ir::ClimateIR(
+                    MBISHI_TEMP_MIN, MBISHI_TEMP_MAX, 1.0f, true, true,
                     std::set<climate::ClimateFanMode>{
                         climate::CLIMATE_FAN_AUTO, climate::CLIMATE_FAN_LOW,
                         climate::CLIMATE_FAN_MEDIUM, climate::CLIMATE_FAN_HIGH,
@@ -30,5 +30,5 @@ namespace esphome {
                 bool on_receive(remote_base::RemoteReceiveData data) override;
 
         };
-    } // namespace mhi
+    } // namespace mbishi
 } // namespace esphome
