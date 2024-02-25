@@ -2,66 +2,66 @@
 #include "esphome/core/log.h"
 
 namespace esphome {
-    namespace mhi {
-        static const char *TAG = "mhi.climate";
+    namespace mbishi {
+        static const char *TAG = "mbishi.climate";
 
         // Power
-        const uint32_t MHI_OFF = 0x08;
-        const uint32_t MHI_ON = 0x00;
+        const uint32_t MBISHI_OFF = 0x08;
+        const uint32_t MBISHI_ON = 0x00;
 
         // Operating mode
-        const uint8_t MHI_AUTO = 0x07;
-        const uint8_t MHI_HEAT = 0x03;
-        const uint8_t MHI_COOL = 0x06;
-        const uint8_t MHI_DRY = 0x05;
-        const uint8_t MHI_FAN = 0x04;
+        const uint8_t MBISHI_AUTO = 0x07;
+        const uint8_t MBISHI_HEAT = 0x03;
+        const uint8_t MBISHI_COOL = 0x06;
+        const uint8_t MBISHI_DRY = 0x05;
+        const uint8_t MBISHI_FAN = 0x04;
 
         // Fan speed
-        const uint8_t MHI_FAN_AUTO = 0x0F;
-        const uint8_t MHI_FAN1 = 0x0E;
-        const uint8_t MHI_FAN2 = 0x0D;
-        const uint8_t MHI_FAN3 = 0x0C;
-        const uint8_t MHI_FAN4 = 0x0B;
-        const uint8_t MHI_HIPOWER = 0x07;
-        const uint8_t MHI_ECONO = 0x00;
+        const uint8_t MBISHI_FAN_AUTO = 0x0F;
+        const uint8_t MBISHI_FAN1 = 0x0E;
+        const uint8_t MBISHI_FAN2 = 0x0D;
+        const uint8_t MBISHI_FAN3 = 0x0C;
+        const uint8_t MBISHI_FAN4 = 0x0B;
+        const uint8_t MBISHI_HIPOWER = 0x07;
+        const uint8_t MBISHI_ECONO = 0x00;
 
         // Vertical swing
-        const uint8_t MHI_VS_SWING = 0xE0;
-        const uint8_t MHI_VS_UP = 0xC0;
-        const uint8_t MHI_VS_MUP = 0xA0;
-        const uint8_t MHI_VS_MIDDLE = 0x80;
-        const uint8_t MHI_VS_MDOWN = 0x60;
-        const uint8_t MHI_VS_DOWN = 0x40;
-        const uint8_t MHI_VS_STOP = 0x20;
+        const uint8_t MBISHI_VS_SWING = 0xE0;
+        const uint8_t MBISHI_VS_UP = 0xC0;
+        const uint8_t MBISHI_VS_MUP = 0xA0;
+        const uint8_t MBISHI_VS_MIDDLE = 0x80;
+        const uint8_t MBISHI_VS_MDOWN = 0x60;
+        const uint8_t MBISHI_VS_DOWN = 0x40;
+        const uint8_t MBISHI_VS_STOP = 0x20;
 
         // Horizontal swing
-        const uint8_t MHI_HS_SWING = 0x0F;
-        const uint8_t MHI_HS_MIDDLE = 0x0C;
-        const uint8_t MHI_HS_LEFT = 0x0E;
-        const uint8_t MHI_HS_MLEFT = 0x0D;
-        const uint8_t MHI_HS_MRIGHT = 0x0B;
-        const uint8_t MHI_HS_RIGHT = 0x0A;
-        const uint8_t MHI_HS_STOP = 0x07;
-        const uint8_t MHI_HS_LEFTRIGHT = 0x08;
-        const uint8_t MHI_HS_RIGHTLEFT = 0x09;
+        const uint8_t MBISHI_HS_SWING = 0x0F;
+        const uint8_t MBISHI_HS_MIDDLE = 0x0C;
+        const uint8_t MBISHI_HS_LEFT = 0x0E;
+        const uint8_t MBISHI_HS_MLEFT = 0x0D;
+        const uint8_t MBISHI_HS_MRIGHT = 0x0B;
+        const uint8_t MBISHI_HS_RIGHT = 0x0A;
+        const uint8_t MBISHI_HS_STOP = 0x07;
+        const uint8_t MBISHI_HS_LEFTRIGHT = 0x08;
+        const uint8_t MBISHI_HS_RIGHTLEFT = 0x09;
 
         // Only available in Auto, Cool and Heat mode
-        const uint8_t MHI_3DAUTO_ON = 0x00;
-        const uint8_t MHI_3DAUTO_OFF = 0x12;
+        const uint8_t MBISHI_3DAUTO_ON = 0x00;
+        const uint8_t MBISHI_3DAUTO_OFF = 0x12;
 
         // NOT available in Fan or Dry mode
-        const uint8_t MHI_SILENT_ON = 0x00;
-        const uint8_t MHI_SILENT_OFF = 0x80;
+        const uint8_t MBISHI_SILENT_ON = 0x00;
+        const uint8_t MBISHI_SILENT_OFF = 0x80;
 
         // Pulse parameters in usec
-        const uint16_t MHI_BIT_MARK = 400;
-        const uint16_t MHI_ONE_SPACE = 1200;
-        const uint16_t MHI_ZERO_SPACE = 400;
-        const uint16_t MHI_HEADER_MARK = 3200;
-        const uint16_t MHI_HEADER_SPACE = 1600;
-        const uint16_t MHI_MIN_GAP = 17500;
+        const uint16_t MBISHI_BIT_MARK = 400;
+        const uint16_t MBISHI_ONE_SPACE = 1200;
+        const uint16_t MBISHI_ZERO_SPACE = 400;
+        const uint16_t MBISHI_HEADER_MARK = 3200;
+        const uint16_t MBISHI_HEADER_SPACE = 1600;
+        const uint16_t MBISHI_MIN_GAP = 17500;
 
-        bool MhiClimate::on_receive(remote_base::RemoteReceiveData data) {
+        bool MbishiClimate::on_receive(remote_base::RemoteReceiveData data) {
             ESP_LOGD(TAG, "Received some bytes");
 
             // The protocol sends the data twice, read here
@@ -70,16 +70,16 @@ namespace esphome {
             uint8_t bytes[19] = {};
 
             //for (uint16_t loop = 1; loop <= 2; loop++) {
-            if (!data.expect_item(MHI_HEADER_MARK, MHI_HEADER_SPACE))
+            if (!data.expect_item(MBISHI_HEADER_MARK, MBISHI_HEADER_SPACE))
                 return false;
             
             // loop_read = 0;
             for (uint8_t a_byte = 0; a_byte < 19; a_byte++) {
                 uint8_t byte = 0;
                 for (int8_t a_bit = 0; a_bit < 8; a_bit++) {
-                    if (data.expect_item(MHI_BIT_MARK, MHI_ONE_SPACE))
+                    if (data.expect_item(MBISHI_BIT_MARK, MBISHI_ONE_SPACE))
                         byte |= 1 << a_bit;
-                    else if (!data.expect_item(MHI_BIT_MARK, MHI_ZERO_SPACE))
+                    else if (!data.expect_item(MBISHI_BIT_MARK, MBISHI_ZERO_SPACE))
                         return false;
                 }
                 bytes[a_byte] = byte;
@@ -127,27 +127,27 @@ namespace esphome {
                 powerMode, operationMode, temperature, fanSpeed, swingV, swingH
             );
 
-            if (powerMode == MHI_ON) {
+            if (powerMode == MBISHI_ON) {
                 // Power and operating mode
                 switch (operationMode) {
-                    case MHI_COOL:
+                    case MBISHI_COOL:
                         this->mode = climate::CLIMATE_MODE_COOL;
-                        //swingV = MHI_VS_UP;
+                        //swingV = MBISHI_VS_UP;
                         break;
-                    case MHI_HEAT:
+                    case MBISHI_HEAT:
                         this->mode = climate::CLIMATE_MODE_HEAT;
-                        // swingV = MHI_VS_DOWN;
+                        // swingV = MBISHI_VS_DOWN;
                         break;
-                    case MHI_FAN:
+                    case MBISHI_FAN:
                         this->mode = climate::CLIMATE_MODE_FAN_ONLY;
                         break;
-                    case MHI_DRY:
+                    case MBISHI_DRY:
                         this->mode = climate::CLIMATE_MODE_DRY;
                         break;
                     default:
-                    case MHI_AUTO:
+                    case MBISHI_AUTO:
                         this->mode = climate::CLIMATE_MODE_AUTO;
-                        // swingV = MHI_VS_MIDDLE;
+                        // swingV = MBISHI_VS_MIDDLE;
                         break;
                 }
             } else {
@@ -158,11 +158,11 @@ namespace esphome {
             this->target_temperature = temperature;
 
             // Horizontal and vertical swing
-            if (swingV == MHI_VS_SWING && swingH == MHI_HS_SWING) {
+            if (swingV == MBISHI_VS_SWING && swingH == MBISHI_HS_SWING) {
                 this->swing_mode = climate::CLIMATE_SWING_BOTH;
-            } else if (swingV == MHI_VS_SWING) {
+            } else if (swingV == MBISHI_VS_SWING) {
                 this->swing_mode = climate::CLIMATE_SWING_VERTICAL;
-            } else if (swingH == MHI_HS_SWING) {
+            } else if (swingH == MBISHI_HS_SWING) {
                 this->swing_mode = climate::CLIMATE_SWING_HORIZONTAL;
             } else {
                 this->swing_mode = climate::CLIMATE_SWING_OFF;
@@ -170,31 +170,31 @@ namespace esphome {
 
             // Fan speed
             switch (fanSpeed) {
-                case MHI_FAN1:
-                case MHI_FAN2: // Only to support remote feedback
+                case MBISHI_FAN1:
+                case MBISHI_FAN2: // Only to support remote feedback
                     this->fan_mode = climate::CLIMATE_FAN_LOW;
                     break;
-                case MHI_FAN3:
+                case MBISHI_FAN3:
                     this->fan_mode = climate::CLIMATE_FAN_MEDIUM;
                     break;
-                case MHI_FAN4:
-                case MHI_HIPOWER: // Not yet supported. Will be added when ESPHome supports it.
+                case MBISHI_FAN4:
+                case MBISHI_HIPOWER: // Not yet supported. Will be added when ESPHome supports it.
                     this->fan_mode = climate::CLIMATE_FAN_HIGH;
                     break;
-                case MHI_FAN_AUTO:
+                case MBISHI_FAN_AUTO:
                     this->fan_mode = climate::CLIMATE_FAN_AUTO;
                     switch (swingH) {
-                        case MHI_HS_MIDDLE:
+                        case MBISHI_HS_MIDDLE:
                             this->fan_mode = climate::CLIMATE_FAN_MIDDLE;
                             break;
-                        case MHI_HS_RIGHTLEFT:
+                        case MBISHI_HS_RIGHTLEFT:
                             this->fan_mode = climate::CLIMATE_FAN_FOCUS;
                             break;
-                        case MHI_HS_LEFTRIGHT:
+                        case MBISHI_HS_LEFTRIGHT:
                             this->fan_mode = climate::CLIMATE_FAN_DIFFUSE;
                             break;
                     }
-                case MHI_ECONO: // Not yet supported. Will be added when ESPHome supports it.
+                case MBISHI_ECONO: // Not yet supported. Will be added when ESPHome supports it.
                 default:
                     this->fan_mode = climate::CLIMATE_FAN_AUTO;
                     break;
@@ -206,7 +206,7 @@ namespace esphome {
             return true;
         }
 
-        void MhiClimate::transmit_state() {
+        void MbishiClimate::transmit_state() {
             uint8_t remote_state[] = {
                 0x52, 0xAE, 0xC3, 0x1A,
                 0xE5, 0x90, 0x00, 0xF0,
@@ -219,17 +219,17 @@ namespace esphome {
             // Initial values
             // ----------------------
 
-            auto operatingMode = MHI_AUTO;
-            auto powerMode = MHI_ON;
+            auto operatingMode = MBISHI_AUTO;
+            auto powerMode = MBISHI_ON;
             auto cleanMode = 0x60; // always off
 
             auto temperature = 22;
-            auto fanSpeed = MHI_FAN_AUTO;
-            auto swingV = MHI_VS_STOP;
-            // auto swingH = MHI_HS_RIGHT;  // custom preferred value for this mode, should be MHI_HS_STOP
-            auto swingH = MHI_HS_STOP;
-            auto _3DAuto = MHI_3DAUTO_OFF;
-            auto silentMode = MHI_SILENT_OFF;
+            auto fanSpeed = MBISHI_FAN_AUTO;
+            auto swingV = MBISHI_VS_STOP;
+            // auto swingH = MBISHI_HS_RIGHT;  // custom preferred value for this mode, should be MBISHI_HS_STOP
+            auto swingH = MBISHI_HS_STOP;
+            auto _3DAuto = MBISHI_3DAUTO_OFF;
+            auto silentMode = MBISHI_SILENT_OFF;
 
             // ----------------------
             // Assign the values
@@ -238,28 +238,28 @@ namespace esphome {
             // Power and operating mode
             switch (this->mode) {
                 case climate::CLIMATE_MODE_COOL:
-                    operatingMode = MHI_COOL;
-                    swingV = MHI_VS_UP; // custom preferred value for this mode
+                    operatingMode = MBISHI_COOL;
+                    swingV = MBISHI_VS_UP; // custom preferred value for this mode
                     break;
                 case climate::CLIMATE_MODE_HEAT:
-                    operatingMode = MHI_HEAT;
-                    swingV = MHI_VS_DOWN; // custom preferred value for this mode
+                    operatingMode = MBISHI_HEAT;
+                    swingV = MBISHI_VS_DOWN; // custom preferred value for this mode
                     break;
                 case climate::CLIMATE_MODE_AUTO:
-                    operatingMode = MHI_AUTO;
-                    swingV = MHI_VS_MIDDLE; // custom preferred value for this mode
+                    operatingMode = MBISHI_AUTO;
+                    swingV = MBISHI_VS_MIDDLE; // custom preferred value for this mode
                     break;
                 case climate::CLIMATE_MODE_FAN_ONLY:
-                    operatingMode = MHI_FAN;
-                    swingV = MHI_VS_MIDDLE; // custom preferred value for this mode
+                    operatingMode = MBISHI_FAN;
+                    swingV = MBISHI_VS_MIDDLE; // custom preferred value for this mode
                     break;
                 case climate::CLIMATE_MODE_DRY:
-                    operatingMode = MHI_DRY;
-                    swingV = MHI_VS_MIDDLE; // custom preferred value for this mode
+                    operatingMode = MBISHI_DRY;
+                    swingV = MBISHI_VS_MIDDLE; // custom preferred value for this mode
                     break;
                 case climate::CLIMATE_MODE_OFF:
                 default:
-                    powerMode = MHI_OFF;
+                    powerMode = MBISHI_OFF;
                     break;
             }
 
@@ -270,14 +270,14 @@ namespace esphome {
             // Horizontal and vertical swing
             switch (this->swing_mode) {
                 case climate::CLIMATE_SWING_BOTH:
-                    swingV = MHI_VS_SWING;
-                    swingH = MHI_HS_SWING;
+                    swingV = MBISHI_VS_SWING;
+                    swingH = MBISHI_HS_SWING;
                     break;
                 case climate::CLIMATE_SWING_HORIZONTAL:
-                    swingH = MHI_HS_SWING;
+                    swingH = MBISHI_HS_SWING;
                     break;
                 case climate::CLIMATE_SWING_VERTICAL:
-                    swingV = MHI_VS_SWING;
+                    swingV = MBISHI_VS_SWING;
                     break;
                 case climate::CLIMATE_SWING_OFF:
                 default:
@@ -288,29 +288,29 @@ namespace esphome {
             // Fan speed
             switch (this->fan_mode.value()) {
                 case climate::CLIMATE_FAN_LOW:
-                    fanSpeed = MHI_FAN1;
+                    fanSpeed = MBISHI_FAN1;
                     break;
                 case climate::CLIMATE_FAN_MEDIUM:
-                    fanSpeed = MHI_FAN3;
+                    fanSpeed = MBISHI_FAN3;
                     break;
                 case climate::CLIMATE_FAN_HIGH:
-                    fanSpeed = MHI_FAN4;
+                    fanSpeed = MBISHI_FAN4;
                     break;
                 case climate::CLIMATE_FAN_MIDDLE:
-                    fanSpeed = MHI_FAN_AUTO;
-                    swingH = MHI_HS_MIDDLE;
+                    fanSpeed = MBISHI_FAN_AUTO;
+                    swingH = MBISHI_HS_MIDDLE;
                     break;
                 case climate::CLIMATE_FAN_FOCUS:
-                    fanSpeed = MHI_FAN_AUTO;
-                    swingH = MHI_HS_RIGHTLEFT;
+                    fanSpeed = MBISHI_FAN_AUTO;
+                    swingH = MBISHI_HS_RIGHTLEFT;
                     break;
                 case climate::CLIMATE_FAN_DIFFUSE:
-                    fanSpeed = MHI_FAN_AUTO;
-                    swingH = MHI_HS_LEFTRIGHT;
+                    fanSpeed = MBISHI_FAN_AUTO;
+                    swingH = MBISHI_HS_LEFTRIGHT;
                     break;
                 case climate::CLIMATE_FAN_AUTO:
                 default:
-                    fanSpeed = MHI_FAN_AUTO;
+                    fanSpeed = MBISHI_FAN_AUTO;
                     break;
             }
 
@@ -345,7 +345,7 @@ namespace esphome {
             remote_state[16] = ~remote_state[15];
             remote_state[18] = ~remote_state[17];
 
-            // ESP_LOGD(TAG, "Sending MHI target temp: %.1f state: %02X mode: %02X temp: %02X", this->target_temperature, remote_state[5], remote_state[6], remote_state[7]);
+            // ESP_LOGD(TAG, "Sending MBISHI target temp: %.1f state: %02X mode: %02X temp: %02X", this->target_temperature, remote_state[5], remote_state[6], remote_state[7]);
 
             auto bytes = remote_state;
             ESP_LOGD(TAG, 
@@ -363,20 +363,20 @@ namespace esphome {
             data->set_carrier_frequency(38000);
 
             // Header
-            data->mark(MHI_HEADER_MARK);
-            data->space(MHI_HEADER_SPACE);
+            data->mark(MBISHI_HEADER_MARK);
+            data->space(MBISHI_HEADER_SPACE);
 
             // Data
             for (uint8_t i : remote_state)
                 for (uint8_t j = 0; j < 8; j++) {
-                    data->mark(MHI_BIT_MARK);
+                    data->mark(MBISHI_BIT_MARK);
                     bool bit = i & (1 << j);
-                    data->space(bit ? MHI_ONE_SPACE : MHI_ZERO_SPACE);
+                    data->space(bit ? MBISHI_ONE_SPACE : MBISHI_ZERO_SPACE);
                 }
-            data->mark(MHI_BIT_MARK);
+            data->mark(MBISHI_BIT_MARK);
             data->space(0);
 
             transmit.perform();
         }
-    } // namespace mhi
+    } // namespace mbishi
 } // namespace esphome
