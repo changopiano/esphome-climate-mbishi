@@ -6,18 +6,18 @@ namespace esphome {
         static const char *TAG = "mbishi.climate";
 
         // Power
-        const uint32_t MBISHI_OFF = 0x08;
-        const uint32_t MBISHI_ON = 0x00;
+        const uint32_t MBISHI_OFF = 0x00;
+        //const uint32_t MBISHI_ON = 0x08;
 
         // Operating mode
-        const uint8_t MBISHI_AUTO = 0x07;
-        const uint8_t MBISHI_HEAT = 0x03;
-        const uint8_t MBISHI_COOL = 0x06;
-        const uint8_t MBISHI_DRY = 0x05;
-        const uint8_t MBISHI_FAN = 0x04;
+        const uint8_t MBISHI_AUTO = 0x20;
+        const uint8_t MBISHI_HEAT = 0x08;
+        const uint8_t MBISHI_COOL = 0x18;
+        const uint8_t MBISHI_DRY = 0x10;
+        const uint8_t MBISHI_FAN = 0x00;
 
         // Fan speed
-        const uint8_t MBISHI_FAN_AUTO = 0x0F;
+        const uint8_t MBISHI_FAN_AUTO = 0x00;
         const uint8_t MBISHI_FAN1 = 0x0E;
         const uint8_t MBISHI_FAN2 = 0x0D;
         const uint8_t MBISHI_FAN3 = 0x0C;
@@ -54,11 +54,11 @@ namespace esphome {
         const uint8_t MBISHI_SILENT_OFF = 0x80;
 
         // Pulse parameters in usec
-        const uint16_t MBISHI_BIT_MARK = 400;
-        const uint16_t MBISHI_ONE_SPACE = 1200;
-        const uint16_t MBISHI_ZERO_SPACE = 400;
-        const uint16_t MBISHI_HEADER_MARK = 3200;
-        const uint16_t MBISHI_HEADER_SPACE = 1600;
+        const uint16_t MBISHI_BIT_MARK = 430;
+        const uint16_t MBISHI_ONE_SPACE = 1250;
+        const uint16_t MBISHI_ZERO_SPACE = 390;
+        const uint16_t MBISHI_HEADER_MARK = 3500;
+        const uint16_t MBISHI_HEADER_SPACE = 1700;
         const uint16_t MBISHI_MIN_GAP = 17500;
 
         bool MbishiClimate::on_receive(remote_base::RemoteReceiveData data) {
