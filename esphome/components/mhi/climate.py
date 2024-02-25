@@ -5,12 +5,12 @@ from esphome.const import CONF_ID
 
 AUTO_LOAD = ['climate_ir']
 
-mhi_ns = cg.esphome_ns.namespace('mhi')
-MhiClimate = mhi_ns.class_('MhiClimate', climate_ir.ClimateIR)
+mbishi_ns = cg.esphome_ns.namespace('mbishi')
+MbishiClimate = mbishi_ns.class_('MbishiClimate', climate_ir.ClimateIR)
 
 #CONFIG_SCHEMA = climate_ir.CLIMATE_IR_SCHEMA.extend({
 CONFIG_SCHEMA = climate_ir.CLIMATE_IR_WITH_RECEIVER_SCHEMA.extend({
-    cv.GenerateID(): cv.declare_id(MhiClimate),
+    cv.GenerateID(): cv.declare_id(MbishiClimate),
 })
 
 
