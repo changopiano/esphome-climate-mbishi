@@ -1,4 +1,4 @@
-#include "mhi.h"
+#include "mbishi.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
